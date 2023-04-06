@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Profile from './profile/profile';
+import Proyect from './proyect';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
           <p>Works</p>
           <ArrowDownwardIcon />
         </div>
+          <Proyect />
         <div className={styles.bar}>
           <p>Skills</p>
           <ArrowDownwardIcon />

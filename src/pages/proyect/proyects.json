@@ -1,0 +1,30 @@
+[
+    {
+        "name" : "Travel Space",
+        "url" : "https://spacetraveltourism.netlify.app/",
+        "description" : "Page to select a planet for a travel in space, you can meet the crew, technology and planet, distance and time.",
+        "stack": ["React", "Redux", "CSS"],
+        "images": ""
+    },
+    {
+        "name" : "Sunnyside Agency",
+        "url" : "https://agencysunny.netlify.app/",
+        "description": "SPA Landing page sunnsyside agency, contact, about, client testimonial, react + bootstrap",
+        "stack" : ["React", "CSS"],
+        "images": ""
+    },
+    {
+        "name" : "DashboarCare",
+        "url" : "https://dashboarcare.netlify.app/",
+        "description": "",
+        "stack" : ["React"],
+        "images": ""
+    },
+    {
+        "name" : "Fivvy",
+        "url" : "https://www.getfivvy.com/",
+        "description": "",
+        "stack" : ["React Native", "Redux Sagas"],
+        "images": ""
+    }
+]
