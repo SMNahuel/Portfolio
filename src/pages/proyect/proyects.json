@@ -9,22 +9,50 @@
     {
         "name" : "Sunnyside Agency",
         "url" : "https://agencysunny.netlify.app/",
-        "description": "SPA Landing page sunnsyside agency, contact, about, client testimonial, react + bootstrap",
+        "description": "SPA Landing page sunnsyside agency, contact, about, client testimonial, react + bootstrap.",
         "stack" : ["React", "CSS"],
         "images": ""
     },
     {
         "name" : "DashboarCare",
         "url" : "https://dashboarcare.netlify.app/",
-        "description": "",
-        "stack" : ["React"],
+        "description": "Excirse by FrontendMentor you can upload your acitvity in study, games, care, etc and see you report.",
+        "stack" : ["React", "CSS"],
         "images": ""
     },
     {
         "name" : "Fivvy",
         "url" : "https://www.getfivvy.com/",
+        "description": "A app where you can select the best card (debit or credit) option to pay, gas, shop, food, etc and see your expense in a line time or type.",
+        "stack" : ["React Native", "Redux Sagas", ""],
+        "images": ""
+    },
+    {
+        "name" : "A tiempo remis y taxis",
+        "url" : "",
         "description": "",
-        "stack" : ["React Native", "Redux Sagas"],
+        "stack" : [""],
+        "images": ""
+    },
+    {
+        "name" : "Cripto Native",
+        "url" : "",
+        "description": "",
+        "stack" : [""],
+        "images": ""
+    },
+    {
+        "name" : "Challenge Signos Zodiacales",
+        "url" : "",
+        "description": "",
+        "stack" : [""],
+        "images": ""
+    },
+    {
+        "name" : "Banza",
+        "url" : "",
+        "description": "",
+        "stack" : [""],
         "images": ""
     }
 ]

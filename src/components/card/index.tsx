@@ -1,17 +1,24 @@
+import { useParallax, ParallaxProvider } from 'react-scroll-parallax';
 import styles from './styles.module.css'
 
 const Card = ({ items }: any) => {
-    console.log(items);
+
+
+    const goToPage = (url: string): void => {
+        window.open(url);
+    }
+
     return (
-        <div className={styles.card}>
-            <p>{items.name}</p>
+
+        <div className={styles.card} >
+            <p onClick={() => goToPage(items.url)}>{items.name}</p>
             <p>{items.description}</p>
             <div className={styles.stack}>
                 {
                     items.stack && items.stack.map((item: any) => {
                         return (
                             <p>
-                                {item }
+                                {item}
                             </p>
                         )
                     })
@@ -19,6 +26,7 @@ const Card = ({ items }: any) => {
 
             </div>
         </div>
+
     );
 
 }

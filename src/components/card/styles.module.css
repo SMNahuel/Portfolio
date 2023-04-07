@@ -11,6 +11,7 @@
     cursor: pointer;
     font-size: 20px;
     font-weight: 700;
+    
 }
 .card > p:nth-child(1):hover{
     color: blue;
@@ -18,9 +19,11 @@
 }
 .card > p:nth-child(2){
     margin-left: 10px;
+    margin-top: 1em;
 }
 
 .stack{
+    margin-top: 1em;
     display: flex; 
     flex-direction: row;
 }
