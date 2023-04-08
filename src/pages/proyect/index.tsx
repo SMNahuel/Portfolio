@@ -1,19 +1,24 @@
 import ListProyect from './proyects.json';
 import Card from '../../components/card';
-import { useParallax } from "react-scroll-parallax";
-import { useRef } from 'react';
+import { Parallax } from 'react-scroll-parallax';
+import style from './style.module.css'
+const getRandomInt = (min: number, max: number): any => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 const Proyect = () => {
-
+    const yOff: any = getRandomInt(50, -100);
 
     return (
         <div >
-            {
-                ListProyect.map((items: any, index: number) => {
-                    return (
-                        <Card items={items} />
-                    )
-                })
-            }
+
+                {
+                    ListProyect.map((items: any, index: number) => {
+                        return (
+                            <Card key={index} items={items} />
+                        )
+                    })
+                }
+    
         </div>
     )
 }

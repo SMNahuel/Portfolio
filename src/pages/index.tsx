@@ -5,7 +5,9 @@ import styles from '@/styles/Home.module.css'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Profile from './profile/profile';
 import Proyect from './proyect';
-import { ParallaxBanner, ParallaxBannerLayer, ParallaxProvider } from 'react-scroll-parallax';
+import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
+import Skill from './skill';
+import Contact from './contact';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -30,16 +32,19 @@ export default function Home() {
             <p>Works</p>
             <ArrowDownwardIcon />
           </div>
+
           <Proyect />
+
           <div className={styles.bar}>
             <p>Skills</p>
             <ArrowDownwardIcon />
           </div>
+          <Skill />
           <div className={styles.bar}>
             <p>Contact</p>
             <ArrowDownwardIcon />
           </div>
-
+          <Contact />
         </div>
       </ParallaxProvider>
     </>
