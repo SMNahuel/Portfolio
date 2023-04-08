@@ -15,9 +15,9 @@ const Card = ({ items }: any) => {
             <p>{items.description}</p>
             <div className={styles.stack}>
                 {
-                    items.stack && items.stack.map((item: any) => {
+                    items.stack && items.stack.map((item: any, index: number) => {
                         return (
-                            <p>
+                            <p key={index}>
                                 {item}
                             </p>
                         )
