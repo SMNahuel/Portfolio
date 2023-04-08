@@ -1,15 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Profile from './profile/profile';
 import Proyect from './proyect';
-import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
-import Skill from './skill';
+import { ParallaxProvider } from 'react-scroll-parallax';
 import Contact from './contact';
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
   return (
     <>
@@ -21,28 +15,26 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className={styles.container}>
+
+
           <h1>Portfolio </h1>
           <h1>Nahuel Sánchez</h1>
+
           <div className={styles.bar}>
             <p>About Me</p>
-            <ArrowDownwardIcon />
           </div>
           <Profile />
           <div className={styles.bar}>
             <p>Works</p>
-            <ArrowDownwardIcon />
           </div>
-
           <Proyect />
-
-          <div className={styles.bar}>
+          
+    {/*       <div className={styles.bar}>
             <p>Skills</p>
-            <ArrowDownwardIcon />
           </div>
-          <Skill />
+          <Skill /> */}
           <div className={styles.bar}>
             <p>Contact</p>
-            <ArrowDownwardIcon />
           </div>
           <Contact />
         </div>

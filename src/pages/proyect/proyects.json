@@ -24,35 +24,29 @@
         "name" : "Fivvy",
         "url" : "https://www.getfivvy.com/",
         "description": "A app where you can select the best card (debit or credit) option to pay, gas, shop, food, etc and see your expense in a line time or type.",
-        "stack" : ["React Native", "Redux Sagas", ""],
+        "stack" : ["React Native", "Redux Sagas", "Typescript", "i18n"],
         "images": ""
     },
-    {
-        "name" : "A tiempo remis y taxis",
-        "url" : "",
-        "description": "",
-        "stack" : [""],
-        "images": ""
-    },
+
     {
         "name" : "Cripto Native",
         "url" : "",
-        "description": "",
-        "stack" : [""],
+        "description": "A challenge about a app for know the prices of cripto currencies and real time.",
+        "stack" : ["React Native", "CSS", "Redux"],
         "images": ""
     },
     {
         "name" : "Challenge Signos Zodiacales",
         "url" : "",
         "description": "",
-        "stack" : [""],
+        "stack" : ["React", "CSS", "Redux"],
         "images": ""
     },
     {
         "name" : "Banza",
-        "url" : "",
+        "url" : "https://banza.com.ar/",
         "description": "",
-        "stack" : [""],
+        "stack" : ["React Native", "CSS", "Redux", "Typescript"],
         "images": ""
     }
 ]
