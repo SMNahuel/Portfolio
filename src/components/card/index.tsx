@@ -21,7 +21,7 @@ const Card = ({ items }: any) => {
                                 {item}
                             </p>
                         )
-                    })
+                    } )
                 }
 
             </div>

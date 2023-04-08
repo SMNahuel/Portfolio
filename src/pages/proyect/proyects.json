@@ -1,52 +1,79 @@
 [
     {
-        "name" : "Travel Space",
-        "url" : "https://spacetraveltourism.netlify.app/",
-        "description" : "Page to select a planet for a travel in space, you can meet the crew, technology and planet, distance and time.",
-        "stack": ["React", "Redux", "CSS"],
-        "images": ""
-    },
-    {
-        "name" : "Sunnyside Agency",
-        "url" : "https://agencysunny.netlify.app/",
-        "description": "SPA Landing page sunnsyside agency, contact, about, client testimonial, react + bootstrap.",
-        "stack" : ["React", "CSS"],
-        "images": ""
-    },
-    {
-        "name" : "DashboarCare",
-        "url" : "https://dashboarcare.netlify.app/",
-        "description": "Excirse by FrontendMentor you can upload your acitvity in study, games, care, etc and see you report.",
-        "stack" : ["React", "CSS"],
-        "images": ""
-    },
-    {
-        "name" : "Fivvy",
-        "url" : "https://www.getfivvy.com/",
+        "name": "Fivvy",
+        "url": "https://www.getfivvy.com/",
         "description": "A app where you can select the best card (debit or credit) option to pay, gas, shop, food, etc and see your expense in a line time or type.",
-        "stack" : ["React Native", "Redux Sagas", "Typescript", "i18n"],
+        "stack": [
+            "React Native",
+            "Redux Sagas",
+            "Typescript",
+            "i18n"
+        ],
         "images": ""
     },
-
     {
-        "name" : "Cripto Native",
-        "url" : "",
+        "name": "Banza",
+        "url": "https://banza.com.ar/",
+        "description": "App for buy, sell CEDEAR, Dolar MEP, Criptocurrency, etc.",
+        "stack": [
+            "React Native",
+            "CSS",
+            "Redux",
+            "Typescript"
+        ],
+        "images": ""
+    },
+    {
+        "name": "Travel Space",
+        "url": "https://spacetraveltourism.netlify.app/",
+        "description": "Page to select a planet for a travel in space, you can meet the crew, technology and planet, distance and time.",
+        "stack": [
+            "React",
+            "Redux",
+            "CSS"
+        ],
+        "images": ""
+    },
+    {
+        "name": "Sunnyside Agency",
+        "url": "https://agencysunny.netlify.app/",
+        "description": "SPA Landing page sunnsyside agency, contact, about, client testimonial, react + bootstrap.",
+        "stack": [
+            "React",
+            "CSS"
+        ],
+        "images": ""
+    },
+    {
+        "name": "DashboarCare",
+        "url": "https://dashboarcare.netlify.app/",
+        "description": "Excirse by FrontendMentor you can upload your acitvity in study, games, care, etc and see you report.",
+        "stack": [
+            "React",
+            "CSS"
+        ],
+        "images": ""
+    },
+    {
+        "name": "Cripto Native",
+        "url": "",
         "description": "A challenge about a app for know the prices of cripto currencies and real time.",
-        "stack" : ["React Native", "CSS", "Redux"],
+        "stack": [
+            "React Native",
+            "CSS",
+            "Redux"
+        ],
         "images": ""
     },
     {
-        "name" : "Challenge Signos Zodiacales",
-        "url" : "",
+        "name": "Challenge Signos Zodiacales",
+        "url": "",
         "description": "",
-        "stack" : ["React", "CSS", "Redux"],
-        "images": ""
-    },
-    {
-        "name" : "Banza",
-        "url" : "https://banza.com.ar/",
-        "description": "",
-        "stack" : ["React Native", "CSS", "Redux", "Typescript"],
+        "stack": [
+            "React",
+            "CSS",
+            "Redux"
+        ],
         "images": ""
     }
 ]
