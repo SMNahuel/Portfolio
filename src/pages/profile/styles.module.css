@@ -30,3 +30,15 @@
 .about>h3{
     text-align: center;
 }
+
+@media (max-width: 900px){
+    .container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .imageProfile{
+        width: 300px;
+        height: 300px;
+    }
+}

@@ -6,19 +6,17 @@ const getRandomInt = (min: number, max: number): any => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 const Proyect = () => {
-    const yOff: any = getRandomInt(50, -100);
 
     return (
-        <div >
+        <div>
+            {
+                ListProyect.map((items: any, index: number) => {
+                    return (
+                        <Card key={index} items={items} />
+                    )
+                })
+            }
 
-                {
-                    ListProyect.map((items: any, index: number) => {
-                        return (
-                            <Card key={index} items={items} />
-                        )
-                    })
-                }
-    
         </div>
     )
 }
