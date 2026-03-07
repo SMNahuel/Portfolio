@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dev Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --accent: #c8ff00;
+      --accent2: #ff3c3c;
+      --text: #e8e8e8;
+      --muted: #555;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, width 0.2s, height 0.2s, opacity 0.2s;
+      opacity: 0.5;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.7);
+      animation: slideDown 0.6s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+    }
+
+    .hero-badge {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.3s ease forwards;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-badge::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s ease forwards;
+    }
+
+    .hero-title span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--text);
+    }
+
+    .accent-word {
+      color: var(--accent) !important;
+      -webkit-text-stroke: 0 !important;
+    }
+
+    .hero-desc {
+      max-width: 480px;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.7s ease forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.9s ease forwards;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border: 1px solid;
+      transition: all 0.2s;
+      cursor: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      right: 3rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 1.2s ease forwards;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 3rem;
+      background: var(--muted);
+      animation: scrollLine 1.5s 1.5s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); }
+      100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ABOUT */
+    .section {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-tag::before {
+      content: '';
+      display: inline-block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .stat-card:hover { border-color: var(--border); }
+    .stat-card:hover::after { transform: scaleX(1); }
+
+    .stat-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* PROJECTS */
+    .projects-section {
+      padding: 5rem 3rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .projects-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+      transition: background 0.3s;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200,255,0,0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover { background: #141414; }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-type {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      transition: color 0.2s;
+    }
+    .project-card:hover .project-title { color: var(--accent); }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .project-link {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); }
+
+    .project-link svg {
+      width: 12px; height: 12px;
+    }
+
+    .project-featured {
+      grid-column: span 2;
+      background: #0d0d0d;
+    }
+
+    .project-featured .project-title { font-size: 1.75rem; }
+
+    /* EXPERIENCE */
+    .exp-list {
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .exp-date {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      padding-top: 0.2rem;
+    }
+
+    .exp-role {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .exp-company {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .exp-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 8rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section::before {
+      content: 'HOLA';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30vw;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      pointer-events: none;
+      white-space: nowrap;
+      letter-spacing: -0.05em;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      line-height: 1;
+    }
+
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 0.25rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 3rem;
+      transition: opacity 0.2s;
+    }
+    .contact-email:hover { opacity: 0.7; }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-link {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .social-link:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .section { padding: 5rem 1.5rem; }
+      .projects-section { padding: 4rem 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-featured { grid-column: span 1; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .contact-section { padding: 5rem 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">// nahuel.dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#experience">Experiencia</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-badge">Nahuel Sánchez Morales — Llucmajor, España</div>
+    <h1 class="hero-title">
+      <span>Mobile &</span>
+      <span class="accent-word">Fullstack</span>
+      <span>Developer</span>
+    </h1>
+    <p class="hero-desc">
+      Especializado en <strong style="color:var(--text)">React Native</strong> y desarrollo fullstack. Más de 4 años construyendo apps móviles y productos digitales para empresas en Argentina y España — desde startups hasta corporaciones.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Ver proyectos</a>
+      <a href="#contact" class="btn btn-outline">Contactar</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-tag">Sobre mí</div>
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title">Código que<br/>resuelve problemas</h2>
+        <p class="about-text">
+          Desarrollador con más de 4 años de experiencia en proyectos reales para empresas en Argentina y España. Me especializo en <strong>React Native</strong> para el mundo mobile y en desarrollo fullstack con el stack PERN. He trabajado en apps de finanzas, salud, logística, náutica y concesionarias, siempre enfocado en rendimiento, arquitectura limpia y buena experiencia de usuario.
+          <br/><br/>
+          Actualmente en <strong>RIU Hotels</strong> como React Native Developer. Apasionado por la <strong>inteligencia artificial</strong> y la ciberseguridad.
+        </p>
+        <div class="skills-grid" style="margin-top: 2rem;">
+          <span class="skill-tag">React Native</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">Angular</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">SQL Server</span>
+          <span class="skill-tag">BLE / Bluetooth</span>
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">IA / ChatBots</span>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Apps publicadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Países trabajados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Commits pusheados</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects-section" id="projects">
+    <div class="projects-inner">
+      <div class="section-tag">Proyectos</div>
+      <h2 class="section-title">Trabajo seleccionado</h2>
+      <div class="projects-grid">
+
+        <!-- Featured: Cafler -->
+        <div class="project-card project-featured reveal">
+          <div class="project-num">001 — Destacado</div>
+          <div class="project-type">React Native App · Cometa Labs</div>
+          <h3 class="project-title">Cafler — Gestión de<br/>Servicios para tu Coche</h3>
+          <p class="project-desc">
+            App para solicitar conductor y gestionar servicios del coche: ITV, repostaje, lavado, mecánico, estacionamiento y más. Lideré la reestructuración completa del código, mejora de performance, descomponentización y creación de un turbo module para replicar estilos, paleta de colores y SplashScreen personalizable.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">React Native</span>
+            <span class="project-tag">Turbo Modules</span>
+            <span class="project-tag">Animations</span>
+            <span class="project-tag">API REST</span>
+            <span class="project-tag">Figma</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Ver proyecto
+            </a>
+          </div>
+        </div>
+
+        <!-- Laica -->
+        <div class="project-card reveal" style="transition-delay: 0.1s">
+          <div class="project-num">002</div>
+          <div class="project-type">IoT Mobile App</div>
+          <h3 class="project-title">Laica — Salud de Mascotas</h3>
+          <p class="project-desc">
+            App para monitorear salud de mascotas mediante un collar conectado por BLE (Bluetooth Low Energy). Gestión de agitación, temperatura, agua y paseos. Incluye onboarding, formularios y tests End to End.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">React Native</span>
+            <span class="project-tag">BLE</span>
+            <span class="project-tag">Bluetooth</span>
+            <span class="project-tag">E2E Tests</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Ver proyecto
+            </a>
+          </div>
+        </div>
+
+        <!-- Dealcar -->
+        <div class="project-card reveal" style="transition-delay: 0.15s">
+          <div class="project-num">003</div>
+          <div class="project-type">Marketplace App</div>
+          <h3 class="project-title">Dealcar — Plataforma para Concesionarias</h3>
+          <p class="project-desc">
+            App para concesionarias con subida de coches, tasación, control de stock, chat, agenda y vinculación con portales como AutoScout, coches.net y CarHub. Creada desde cero partiendo de maqueta en Figma.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">React Native</span>
+            <span class="project-tag">Store / Redux</span>
+            <span class="project-tag">API REST</span>
+            <span class="project-tag">Figma</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Ver proyecto
+            </a>
+          </div>
+        </div>
+
+        <!-- Banza -->
+        <div class="project-card reveal" style="transition-delay: 0.2s">
+          <div class="project-num">004</div>
+          <div class="project-type">Fintech App · Banza</div>
+          <h3 class="project-title">Banza — Bolsa Argentina & Dólar MEP</h3>
+          <p class="project-desc">
+            App de compra y venta de acciones en el mercado argentino y USA, y operaciones con dólar MEP. Desarrollé nuevas funcionalidades, pantallas, animaciones, tests unitarios y coordiné el equipo de back y diseño.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">React Native</span>
+            <span class="project-tag">Animations</span>
+            <span class="project-tag">Unit Tests</span>
+            <span class="project-tag">Mercado Capitales</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Ver proyecto
+            </a>
+          </div>
+        </div>
+
+        <!-- Sarebbel -->
+        <div class="project-card reveal" style="transition-delay: 0.25s">
+          <div class="project-num">005</div>
+          <div class="project-type">Náutica / Hardware</div>
+          <h3 class="project-title">Sarebbel — Piloto Autónomo para Barcos</h3>
+          <p class="project-desc">
+            App para trazado de rutas náuticas para un volante autónomo de barcos. Integración con código nativo previo en Kotlin y Swift para conectar la app con el hardware embarcado.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">React Native</span>
+            <span class="project-tag">Kotlin (Native)</span>
+            <span class="project-tag">Swift (Native)</span>
+            <span class="project-tag">Mapas / GPS</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Ver proyecto
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="section-tag">Experiencia</div>
+    <h2 class="section-title">Trayectoria</h2>
+    <div class="exp-list">
+      <div class="exp-item reveal">
+        <div class="exp-date">03-26 / 06-26</div>
+        <div>
+          <div class="exp-role">React Native Developer</div>
+          <div class="exp-company">// RIU Hotels · Llucmajor, España</div>
+          <p class="exp-desc">Documentación de código, definición de reglas en ramas y commits Git, tracking de actividad en la app, testing, conexión a API y gestión de incidencias. Estimación de tareas en equipo.</p>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div class="exp-date">06-25 / 03-26</div>
+        <div>
+          <div class="exp-role">Fullstack Developer</div>
+          <div class="exp-company">// Cometa Labs · Palma, España</div>
+          <p class="exp-desc">Trabajé en múltiples apps: Cafler (servicios para coches), Laica (salud de mascotas con BLE), Dealcar (plataforma para concesionarias) y Sarebbel (navegación náutica autónoma). Reestructuración completa de código, animaciones, turbo modules, integración BLE e integración de código nativo en Kotlin y Swift.</p>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div class="exp-date">10-22 / 06-25</div>
+        <div>
+          <div class="exp-role">Fullstack Developer</div>
+          <div class="exp-company">// Freelance · Corrientes, Argentina</div>
+          <p class="exp-desc">Desarrollo de proyectos para clientes desde cero: frontend, backend, bases de datos, tokens de sesión, arquitectura de apps, diagramas ERM, diseño en Figma y subida a producción.</p>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div class="exp-date">09-22 / 12-22</div>
+        <div>
+          <div class="exp-role">React Native Developer</div>
+          <div class="exp-company">// Banza · Buenos Aires, Argentina</div>
+          <p class="exp-desc">App de compra/venta de acciones y dólar MEP. Nuevas funcionalidades, pantallas, animaciones, tests unitarios y coordinación del equipo de back y diseño. Capacitación de compañeros en GitHub y mercado de capitales.</p>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div class="exp-date">01-22 / 09-22</div>
+        <div>
+          <div class="exp-role">React Native Developer</div>
+          <div class="exp-company">// Fivvy · Buenos Aires, Argentina</div>
+          <p class="exp-desc">App de recomendación de tarjetas de crédito según cashback, puntos y período de gracia. Code reviews, organización de tareas, documentación completa del proyecto, animaciones y gráficos.</p>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div class="exp-date">06-21 / 01-22</div>
+        <div>
+          <div class="exp-role">Fullstack Developer</div>
+          <div class="exp-company">// Spark Solution · Buenos Aires, Argentina</div>
+          <p class="exp-desc">Apps: Hipoz (red social profesional), A Tiempo (app de taxi/remis con Mercado Pago y mapas) y Love Debate (app de citas por debate). Login, register, formularios, integración de APIs de pago y mapas, tests y documentación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner reveal">
+      <div class="section-tag" style="justify-content: center;">Contacto</div>
+      <h2 class="contact-title">¿Trabajamos<br/>juntos?</h2>
+      <p class="contact-sub">
+        Estoy abierto a nuevas oportunidades, proyectos freelance o simplemente charlar sobre tecnología. No dudes en escribirme.
+      </p>
+      <a href="mailto:nahuelsan96@gmail.com" class="contact-email">nahuelsan96@gmail.com</a>
+      <div class="social-links">
+        <a href="#" class="social-link">GitHub</a>
+        <a href="#" class="social-link">LinkedIn</a>
+        <a href="#" class="social-link">Twitter</a>
+        <a href="#" class="social-link">CV ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-copy">© 2026 Nahuel Sánchez Morales — Hecho con 🤘</div>
+    <div class="footer-status">
+      <div class="status-dot"></div>
+      Disponible para proyectos
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '6px';
+        cursor.style.height = '6px';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.opacity = '0.8';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        ring.style.width = '40px';
+        ring.style.height = '40px';
+        ring.style.opacity = '0.5';
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth nav highlight
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
